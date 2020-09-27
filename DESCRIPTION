@@ -1,0 +1,34 @@
+Type: Package
+Package: packEVPI
+Title: Estimate Expected Value of Perfect Information
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Sheeja",
+             family = "Manchira Krishnan",
+             role = c("aut", "cre"),
+             email = "sheeja.manchirakrishnan@york.ac.uk",
+             comment = c(ORCID = "0000-0001-8574-695X"))
+      )
+Maintainer: Sheeja Manchira Krishnan<sheeja.manchirakrishnan@york.ac.uk>
+Description: Estimate the expected value od perfect information. It uses the package 
+    packDAMipd to calculate the net monetary benefit.
+License: GNU General Public License
+Depends:
+    R (>= 3.5.0)
+Imports:
+    IPDFileCheck,
+    packDAMipd,
+    reshape2,
+    ggplot2,
+    testthat
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+URL: https://github.com/sheejamk/packEVPI
+BugReports: https://github.com/sheejamk/packEVPI/issues

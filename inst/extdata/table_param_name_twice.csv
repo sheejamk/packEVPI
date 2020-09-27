@@ -1,0 +1,3 @@
+parameter,Description,Strategy,Value,Calculation,Distribution,Param1,Param1_value,Param2_name,Param2_value
+tp_well_dead,,,0.2,No,,,,,
+tp_well_dead,,,0.2,,exponential,rate,0.3,,
