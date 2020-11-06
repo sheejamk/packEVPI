@@ -56,7 +56,6 @@ sec_markov <- packDAMipd::markov_model(this.strategy, 24, c(1000, 0, 0),
                                        discount = c(0, 0),
                            method = "half cycle correction", param_list)
 list_markov <- packDAMipd::combine_markov(list(this_markov, sec_markov))
-list_markov
 
 param_interest <- "tp_well_dis_co"
 colnames_paramdistr  <- c("Param1_name", "Param1_value", "Param2_name",
@@ -69,8 +68,6 @@ res <- estimate_evpi_evppi_diff_threshold(parameter_of_interest, param_file,
                                          list_markov, threshold_values,
                                          outer_iterations = 1,
                                          inner_iterations = 1)
-
-
 
 A <- packDAMipd::health_state("A", cost = 100, utility = 1)
 B <- packDAMipd::health_state("B", cost = 200, utility = 0.8)
@@ -527,7 +524,6 @@ test_that("plotting evpi threshold", {
                                          discount = c(0, 0),
                                          method = "half cycle correction", param_list)
   list_markov <- packDAMipd::combine_markov(list(this_markov, sec_markov))
-  list_markov
 
   param_interest <- "tp_well_dis_co"
   colnames_paramdistr  <- c("Param1_name", "Param1_value", "Param2_name",
@@ -538,8 +534,6 @@ test_that("plotting evpi threshold", {
                                             list_markov, threshold_values,
                                             outer_iterations = 3,
                                             inner_iterations = 5)
-
-
   plot_evpi_threshold(res)
   expect_error(plot_evpi_threshold(NULL))
   error_names <- c("one", "two", "three", "four")
