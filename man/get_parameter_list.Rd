@@ -19,16 +19,19 @@ get_parameter_list(
 
 \item{value_param_interest}{value of the parameter of interest}
 
-\item{names_params_needed}{names of needed parameters  from param matrix returned}
+\item{names_params_needed}{names of needed parameters  from param
+matrix returned}
 
 \item{names_params_model}{names of parameters in the model}
 
 \item{params_passed}{parameters passed while running the markov model}
 
-\item{param_file}{all parameters required to run the model,provided with name of
-parameter, distribution and parameters that define the probability distribution}
+\item{param_file}{all parameters required to run the model,provided with
+name of the parameter, distribution, and parameters that define the
+probability distribution}
 
-\item{colnames_paramdistr}{col names where the parameter distribution is defined}
+\item{colnames_paramdistr}{col names where the parameter distribution
+is defined}
 }
 \value{
 current_param_list list of parameters
@@ -40,7 +43,7 @@ Function to estimate the expected value of partial perfect information
 this function gets all the parameters except the parameter of interest
 if the parameter is fixed, just read from file or a distribution,
 then gets it from a distribution, or if it to be calculated, just
-give it back as it is. If the parameter is not found, it wil be taken same that
-as that of in the model parameter.
+give it back as it is. If the parameter is not found, it will be taken
+same that as that of in the model parameter.
 }
 \keyword{internal}

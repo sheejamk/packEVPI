@@ -22,10 +22,12 @@ estimate_evpi_evppi_single_param(
 \arguments{
 \item{param_interest}{the main parameter of interest}
 
-\item{param_file}{all parameters required to run the model,provided with name of
-parameter, distribution and parameters that define the probability distribution}
+\item{param_file}{all parameters required to run the model,provided with
+name of the parameter, distribution and parameters that define the
+probability distribution}
 
-\item{colnames_paramdistr}{coumn names where parameter distribution and values are defined}
+\item{colnames_paramdistr}{coumn names where parameter distribution
+and values are defined}
 
 \item{list_markov}{list of markov models to estimate the NMB}
 

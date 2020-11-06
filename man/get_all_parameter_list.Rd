@@ -13,16 +13,19 @@ get_all_parameter_list(
 )
 }
 \arguments{
-\item{names_params_needed}{names of needed parameters  from param matrix returned}
+\item{names_params_needed}{names of needed parameters  from param matrix
+returned}
 
 \item{names_params_model}{names of parameters in the model}
 
 \item{params_passed}{parameters passed while running the markov model}
 
-\item{param_file}{all parameters required to run the model,provided with name of
-parameter, distribution and parameters that define the probability distribution}
+\item{param_file}{all parameters required to run the model,provided
+with name of parameter, distribution and parameters that define the
+probability distribution}
 
-\item{colnames_paramdistr}{col names where the parameter distribution is defined}
+\item{colnames_paramdistr}{col names where the parameter distribution is
+defined}
 }
 \value{
 current_parameter_list set of all parameters

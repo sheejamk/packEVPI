@@ -22,10 +22,12 @@ estimate_evppi(
 \arguments{
 \item{param_interest}{the main parameter of interest}
 
-\item{param_file}{all parameters required to run the model,provided with name of
-parameter, distribution and parameters that define the probability distribution}
+\item{param_file}{all parameters required to run the model,provided with
+name of parameter, distribution and parameters that define the probability
+distribution}
 
-\item{colnames_paramdistr}{coumn names where parameter distribution and values are defined}
+\item{colnames_paramdistr}{coumn names where parameter distribution
+and values are defined}
 
 \item{list_markov}{list of markov models to estimate the NMB}
 
@@ -38,7 +40,8 @@ parameter, distribution and parameters that define the probability distribution}
 \item{comparator}{optinal parameter if need ICER as the output}
 }
 \value{
-result result after evppi calculation, including three forms of evppi
+result result after evppi calculation, including three forms
+of evppi
 }
 \description{
 Function to estimate the expected value of partial perfect information

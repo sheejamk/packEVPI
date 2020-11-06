@@ -20,10 +20,12 @@ find_nmb_setofparams(
 
 \item{value_param_interest}{value for the parameter of interest}
 
-\item{param_file}{all parameters required to run the model,provided with name of
-parameter, distribution and parameters that define the probability distribution}
+\item{param_file}{all parameters required to run the model,provided with
+name of parameter, distribution and parameters that define the probability
+distribution}
 
-\item{colnames_paramdistr}{column names where parameter distribution and values are defined}
+\item{colnames_paramdistr}{column names where parameter distribution and
+values are defined}
 
 \item{list_markov}{list of markov models to estimate the NMB}
 
@@ -32,7 +34,8 @@ parameter, distribution and parameters that define the probability distribution}
 \item{comparator}{optinal parameter if need ICER as the output}
 }
 \value{
-icer_nmb ICER and NMBs for the set of parameters and given strategies
+icer_nmb ICER and NMBs for the set of parameters and given
+strategies
 }
 \description{
 Function to get NMB for a set of parameter

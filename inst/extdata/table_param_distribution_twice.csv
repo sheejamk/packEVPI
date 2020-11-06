@@ -1,0 +1,13 @@
+Parameter,Description,Strategy,Value,Calculation,Distribution,Param1_name,Param1_value,Param2_name,Param2_value,,distribution
+tp_well_dis_co,,,0.4,,uniform,min,0,max,0.8,,
+tp_well_dis_in,,,0.3,,uniform,min,0,max,0.6,,
+tp_well_dead,,,0.2,,,,,,,,
+tp_dis_dead,,,0.2,,,,,,,,
+cost_well_co,,,300,,uniform,min,200,max,1000,,
+cost_well_in,,,300,,uniform,min,200,max,1200,,
+cost_dis_co,,,500,,uniform,min,200,max,1000,,
+cost_dis_in,,,800,,uniform,min,200,max,1200,,
+utility_dis_co,,,0.6,,uniform,min,0.3,max,0.7,,
+utility_dis_in,,,0.8,,uniform,min,0.3,max,0.8,,
+,,,,,,,,,,,
+cost_it,,,,,,,,,,,
