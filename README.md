@@ -7,7 +7,7 @@
 [![Codecov test coverage](https://codecov.io/gh/sheejamk/packEVPI/branch/master/graph/badge.svg)](https://codecov.io/gh/sheejamk/packEVPI?branch=master)
 <!-- badges: end -->
 
-"packEVPI" is a package that allows to caluclate expected value of perfect information (EVPI) and expected value of partial perfect information (EVPPI). It 
+"packEVPI" is a package that allows to calculate expected value of perfect information (EVPI) and expected value of partial perfect information (EVPPI). It 
 uses the package "packDAMipd" in R CRAN for the net monetary benefit calculations
 
 ## Usage

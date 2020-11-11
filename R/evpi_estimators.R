@@ -113,7 +113,7 @@ get_parameter_list <- function(param_interest, value_param_interest,
 #' values are defined
 #' @param list_markov list of markov models to estimate the NMB
 #' @param threshold threshold values of WTP
-#' @param comparator optinal parameter if need ICER as the output
+#' @param comparator optional parameter if need ICER as the output
 #' @return icer_nmb ICER and NMBs for the set of parameters and given
 #' strategies
 #' @keywords internal
@@ -176,13 +176,13 @@ find_nmb_setofparams <- function(param_interest, value_param_interest,
 #' @param param_file all parameters required to run the model,provided with
 #' name of parameter, distribution and parameters that define the probability
 #' distribution
-#' @param colnames_paramdistr coumn names where parameter distribution
+#' @param colnames_paramdistr column names where parameter distribution
 #' and values are defined
 #' @param list_markov list of markov models to estimate the NMB
 #' @param threshold threshold values of WTP
 #' @param outer_iterations number of iterations for outer loop
 #' @param inner_iterations number of iterations for inner loop
-#' @param comparator optinal parameter if need ICER as the output
+#' @param comparator optional parameter if need ICER as the output
 #' @return result result after evppi calculation, including three forms
 #' of evppi
 #' @source https://www.sciencedirect.com/science/article/pii/S1098301510605888
@@ -278,7 +278,7 @@ estimate_evppi <- function(param_interest, param_file, colnames_paramdistr,
 #' @param param_file all parameters required to run the model,provided
 #' with name of parameter, distribution and parameters that define the
 #' probability distribution
-#' @param colnames_paramdistr coumn names where parameter distribution and
+#' @param colnames_paramdistr column names where parameter distribution and
 #' values are defined
 #' @param list_markov list of markov models to estimate the NMB
 #' @param threshold threshold values of WTP
@@ -348,7 +348,7 @@ estimate_evpi <- function(param_file, colnames_paramdistr,
 #' values are defined
 #' @param list_markov list of markov models to estimate the NMB
 #' @param threshold threshold values of WTP
-#' @param comparator optinal parameter if need ICER as the output
+#' @param comparator optional parameter if need ICER as the output
 #' @return icer_nmb ICER and NMB using all sampled parameters
 #' @keywords internal
 #' @details
@@ -494,13 +494,13 @@ get_all_parameter_list <- function(names_params_needed, names_params_model,
 #' @param param_file all parameters required to run the model,provided with
 #' name of the parameter, distribution and parameters that define the
 #' probability distribution
-#' @param colnames_paramdistr coumn names where parameter distribution
+#' @param colnames_paramdistr column names where parameter distribution
 #' and values are defined
 #' @param list_markov list of markov models to estimate the NMB
 #' @param threshold threshold values of WTP
 #' @param outer_iterations number of iterations for outer loop
 #' @param inner_iterations number of iterations for inner loop
-#' @param comparator optinal parameter if need ICER as the output
+#' @param comparator optional parameter if need ICER as the output
 #' @return result evpi and evppi for a single param
 #' @source https://www.sciencedirect.com/science/article/pii/S1098301510605888
 #' @export
@@ -552,13 +552,13 @@ estimate_evpi_evppi_single_param <- function(param_interest, param_file,
 #' @param param_file all parameters required to run the model,provided
 #' with name of the parameter, distribution and parameters that define
 #' the probability distribution
-#' @param colnames_paramdistr coumn names where parameter distribution and
+#' @param colnames_paramdistr column names where parameter distribution and
 #' values are defined
 #' @param list_markov list of markov models to estimate the NMB
 #' @param threshold_values threshold values of WTP
 #' @param outer_iterations number of iterations for outer loop
 #' @param inner_iterations number of iterations for inner loop
-#' @param comparator optinal parameter if need ICER as the output
+#' @param comparator optional parameter if need ICER as the output
 #' @return result result for evpi and evppi for different values of threshold
 #' @source https://www.sciencedirect.com/science/article/pii/S1098301510605888
 #' @export
