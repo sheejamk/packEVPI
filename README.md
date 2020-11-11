@@ -1,6 +1,5 @@
 # packEVPI
 
-# packDAMipd
 <!-- badges: start -->
    [![Build Status](https://travis-ci.org/sheejamk/packEVPI.svg?branch=master)](https://travis-ci.org/sheejamk/packEVPI)
 <!-- badges: end -->
