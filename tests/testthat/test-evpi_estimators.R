@@ -458,9 +458,10 @@ test_that("testing evpi and evppi for single parameter but for mulitple
                                                 list_markov, NULL,
                                                 outer_iterations,
                                                 inner_iterations))
-  res <- estimate_evpi_evppi_diff_threshold(param_interest, param_file,
-                                                  colnames_paramdistr,
-                                                  list_markov, c(2000, 4000))
+  # commented to take less time while testing
+  # res <- estimate_evpi_evppi_diff_threshold(param_interest, param_file,
+  #                                                 colnames_paramdistr,
+  #                                                 list_markov, c(2000, 4000))
 })
 ###############################################################################
 
