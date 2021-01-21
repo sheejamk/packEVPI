@@ -45,4 +45,61 @@ This is the inner loop of the two stage Monte Carlo process
 For the given set of parameters find the nmb from the packDAMipd function
 calculate_icer_nmb
 }
-\keyword{internal}
+\examples{
+well <- packDAMipd::health_state("well", cost = "cost_well_co", utility = 1)
+disabled <- packDAMipd::health_state("disabled", cost = "cost_dis_co",
+utility = "utility_dis_co")
+dead <- packDAMipd::health_state("dead", cost = 0, utility = 0)
+tmat <- rbind(c(1, 2, 3), c(NA, 4, 5), c(NA, NA, 6))
+colnames(tmat) <- rownames(tmat) <- c("well", "disabled", "dead")
+tm <- packDAMipd::populate_transition_matrix(3, tmat,
+c("tp_well_well_co","tp_well_dis_co","tp_well_dead", "tp_dis_dis_co",
+"tp_dis_dead", "tp_dead_dead"),colnames(tmat))
+health_states <- packDAMipd::combine_state(well, disabled, dead)
+this.strategy <- packDAMipd::strategy(tm, health_states, "control")
+param_file <- system.file("extdata", "table_param.csv",
+package = "packEVPI")
+param_list <- packDAMipd::define_parameters(
+tp_well_dis_co = packDAMipd::get_parameter_read("tp_well_dis_co",
+param_file),
+tp_well_dis_in =  packDAMipd::get_parameter_read("tp_well_dis_in",
+param_file),
+tp_well_dead =  packDAMipd::get_parameter_read("tp_well_dead", param_file),
+tp_dis_dead =  packDAMipd::get_parameter_read("tp_dis_dead", param_file),
+ tp_dead_dead =  1,
+ cost_well_co =  packDAMipd::get_parameter_read("cost_well_co", param_file),
+ cost_well_in =  packDAMipd::get_parameter_read("cost_well_in", param_file),
+ cost_dis_co =  packDAMipd::get_parameter_read("cost_dis_co", param_file),
+ cost_dis_in =  packDAMipd::get_parameter_read("cost_dis_in", param_file),
+ utility_dis_co =  packDAMipd::get_parameter_read("utility_dis_co",
+ param_file),
+ utility_dis_in =  packDAMipd::get_parameter_read("utility_dis_in",
+ param_file),
+ tp_well_well_co = "1-(tp_well_dis_co + tp_well_dead)",
+ tp_well_well_in = "1-(tp_well_dis_in + tp_well_dead)",
+ tp_dis_dis_co = "1-( tp_dis_dead)",
+ tp_dis_dis_in = "1-( tp_dis_dead)")
+ this_markov <- packDAMipd::markov_model(this.strategy, 24, c(1000, 0, 0),
+ discount = c(0, 0),method = "half cycle correction", param_list)
+ well <- packDAMipd::health_state("well", cost = "cost_well_in", utility = 1)
+ disabled <- packDAMipd::health_state("disabled", cost = "cost_dis_in",
+ utility = "utility_dis_in")
+ dead <- packDAMipd::health_state("dead", cost = 0, utility = 0)
+ tmat <- rbind(c(1, 2, 3), c(NA, 4, 5), c(NA, NA, 6))
+ colnames(tmat) <- rownames(tmat) <- c("well", "disabled", "dead")
+ tm <- packDAMipd::populate_transition_matrix(3, tmat, c("tp_well_well_in",
+ "tp_well_dis_in", "tp_well_dead", "tp_dis_dis_in","tp_dis_dead",
+ "tp_dead_dead"), colnames(tmat))
+ health_states <- packDAMipd::combine_state(well, disabled, dead)
+ this.strategy <- packDAMipd::strategy(tm, health_states, "intervention")
+ sec_markov <- packDAMipd::markov_model(this.strategy, 24, c(1000, 0, 0),
+ discount = c(0, 0), method = "half cycle correction", param_list)
+ list_markov <- packDAMipd::combine_markov(list(this_markov, sec_markov))
+ param_interest <- "tp_well_dis_co"
+ colnames_paramdistr  <- c("Param1_name", "Param1_value", "Param2_name",
+ "Param2_value")
+ value_param_interest <- 0.2
+ threshold <- 2000
+ res <- find_nmb_setofparams(param_interest, value_param_interest,
+ param_file, colnames_paramdistr, list_markov, threshold)
+}

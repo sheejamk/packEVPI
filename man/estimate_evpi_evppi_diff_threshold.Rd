@@ -9,7 +9,7 @@ https://www.sciencedirect.com/science/article/pii/S1098301510605888
 }
 \usage{
 estimate_evpi_evppi_diff_threshold(
-  parameter_of_interest,
+  parameters_of_interest,
   param_file,
   colnames_paramdistr,
   list_markov,
@@ -20,7 +20,7 @@ estimate_evpi_evppi_diff_threshold(
 )
 }
 \arguments{
-\item{parameter_of_interest}{parameter of interest}
+\item{parameters_of_interest}{parameters of interest}
 
 \item{param_file}{all parameters required to run the model,provided
 with name of the parameter, distribution and parameters that define
@@ -45,4 +45,63 @@ result result for evpi and evppi for different values of threshold
 \description{
 Function to estimate the expected value of partial perfect information
 This is the outer loop of the two stage Monte Carlo process
+}
+\examples{
+param_file <- system.file("extdata", "table_param.csv", package = "packEVPI")
+colnames_paramdistr  <- c("Param1_name", "Param1_value", "Param2_name",
+"Param2_value")
+parameters_of_interest <- "tp_well_dis_co"
+outer_iterations <- 1
+inner_iterations <- 2
+threshold <- 2000
+well <- packDAMipd::health_state("well", cost = "cost_well_co", utility = 1)
+ disabled <- packDAMipd::health_state("disabled", cost = "cost_dis_co",
+ utility = "utility_dis_co")
+ dead <- packDAMipd::health_state("dead", cost = 0, utility = 0)
+ tmat <- rbind(c(1, 2, 3), c(NA, 4, 5), c(NA, NA, 6))
+ colnames(tmat) <- rownames(tmat) <- c("well", "disabled", "dead")
+ tm <- packDAMipd::populate_transition_matrix(3, tmat,
+ c("tp_well_well_co","tp_well_dis_co","tp_well_dead", "tp_dis_dis_co",
+ "tp_dis_dead", "tp_dead_dead"),colnames(tmat))
+ health_states <- packDAMipd::combine_state(well, disabled, dead)
+ this.strategy <- packDAMipd::strategy(tm, health_states, "control")
+ param_list <- packDAMipd::define_parameters(
+ tp_well_dis_co = packDAMipd::get_parameter_read("tp_well_dis_co",
+ param_file),
+ tp_well_dis_in =  packDAMipd::get_parameter_read("tp_well_dis_in",
+ param_file),
+ tp_well_dead =  packDAMipd::get_parameter_read("tp_well_dead", param_file),
+ tp_dis_dead =  packDAMipd::get_parameter_read("tp_dis_dead", param_file),
+ tp_dead_dead =  1,
+ cost_well_co =  packDAMipd::get_parameter_read("cost_well_co", param_file),
+ cost_well_in =  packDAMipd::get_parameter_read("cost_well_in", param_file),
+ cost_dis_co =  packDAMipd::get_parameter_read("cost_dis_co", param_file),
+ cost_dis_in =  packDAMipd::get_parameter_read("cost_dis_in", param_file),
+ utility_dis_co =  packDAMipd::get_parameter_read("utility_dis_co",
+ param_file),
+ utility_dis_in =  packDAMipd::get_parameter_read("utility_dis_in",
+ param_file),
+ tp_well_well_co = "1-(tp_well_dis_co + tp_well_dead)",
+ tp_well_well_in = "1-(tp_well_dis_in + tp_well_dead)",
+ tp_dis_dis_co = "1-( tp_dis_dead)",
+ tp_dis_dis_in = "1-( tp_dis_dead)")
+ this_markov <- packDAMipd::markov_model(this.strategy, 24, c(1000, 0, 0),
+ discount = c(0, 0),method = "half cycle correction", param_list)
+ well <- packDAMipd::health_state("well", cost = "cost_well_in", utility = 1)
+ disabled <- packDAMipd::health_state("disabled", cost = "cost_dis_in",
+ utility = "utility_dis_in")
+ dead <- packDAMipd::health_state("dead", cost = 0, utility = 0)
+ tmat <- rbind(c(1, 2, 3), c(NA, 4, 5), c(NA, NA, 6))
+ colnames(tmat) <- rownames(tmat) <- c("well", "disabled", "dead")
+ tm <- packDAMipd::populate_transition_matrix(3, tmat, c("tp_well_well_in",
+ "tp_well_dis_in", "tp_well_dead", "tp_dis_dis_in","tp_dis_dead",
+ "tp_dead_dead"), colnames(tmat))
+ health_states <- packDAMipd::combine_state(well, disabled, dead)
+ this.strategy <- packDAMipd::strategy(tm, health_states, "intervention")
+ sec_markov <- packDAMipd::markov_model(this.strategy, 24, c(1000, 0, 0),
+  discount = c(0, 0), method = "half cycle correction", param_list)
+  list_markov <- packDAMipd::combine_markov(list(this_markov, sec_markov))
+res <- estimate_evpi_evppi_diff_threshold(parameters_of_interest, param_file,
+colnames_paramdistr,list_markov, threshold, outer_iterations,
+inner_iterations)
 }
