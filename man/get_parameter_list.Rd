@@ -5,8 +5,8 @@
 \title{Function to estimate the expected value of partial perfect information}
 \usage{
 get_parameter_list(
-  param_interest,
-  value_param_interest,
+  params_interest,
+  value_params_interest,
   names_params_needed,
   names_params_model,
   params_passed,
@@ -15,9 +15,9 @@ get_parameter_list(
 )
 }
 \arguments{
-\item{param_interest}{the main parameter of interest}
+\item{params_interest}{the main parameter of interest}
 
-\item{value_param_interest}{value of the parameter of interest}
+\item{value_params_interest}{value of the parameter of interest}
 
 \item{names_params_needed}{names of needed parameters  from param
 matrix returned}

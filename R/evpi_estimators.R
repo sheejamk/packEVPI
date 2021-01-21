@@ -1,7 +1,7 @@
 ######################################################################
 #' Function to estimate the expected value of partial perfect information
-#' @param param_interest the main parameter of interest
-#' @param value_param_interest value of the parameter of interest
+#' @param params_interest the main parameter of interest
+#' @param value_params_interest value of the parameter of interest
 #' @param names_params_needed names of needed parameters  from param
 #' matrix returned
 #' @param names_params_model names of parameters in the model
@@ -19,11 +19,11 @@
 #' then gets it from a distribution, or if it to be calculated, just
 #' give it back as it is. If the parameter is not found, it will be taken
 #' same that as that of in the model parameter.
-get_parameter_list <- function(param_interest, value_param_interest,
+get_parameter_list <- function(params_interest, value_params_interest,
                                names_params_needed, names_params_model,
                                params_passed,
                                param_file, colnames_paramdistr) {
-  list_checks <- list(param_interest, value_param_interest,
+  list_checks <- list(params_interest, value_params_interest,
                   names_params_needed, names_params_model,
                   params_passed, param_file, colnames_paramdistr)
 
@@ -49,7 +49,7 @@ get_parameter_list <- function(param_interest, value_param_interest,
   current_param_names <- c()
   for (j in 2:length(names_params_needed)) {
     # fixing the param_interest , so that we don't need to sample
-    if (names_params_needed[j] != param_interest) {
+    if (!(names_params_needed[j] %in%  params_interest)) {
       # sample others - but identify those require calculations
       #if the selected parameters is needed to run the model
       if (names_params_needed[j] %in% names_params_model) {
@@ -57,7 +57,8 @@ get_parameter_list <- function(param_interest, value_param_interest,
         # is a numerical value, that has been either read from a file or
         # directly assigned. It might not be calculated. so those can be
         # found from the parameter file
-        res <- suppressWarnings(as.numeric(params_passed[names_params_needed[j]]))
+        res <-
+          suppressWarnings(as.numeric(params_passed[names_params_needed[j]]))
         if (!is.na(res)) {
           # check if the parameter is defined using a distribution or actually
           # fixed (for death rates)
@@ -79,7 +80,7 @@ get_parameter_list <- function(param_interest, value_param_interest,
                                                param_file)
             }else{
               curr_parm_value <-
-                packDAMipd::get_parameter_def_distribution(names_params_needed[j],
+              packDAMipd::get_parameter_def_distribution(names_params_needed[j],
                                                            param_file,
                                                           colnames_paramdistr)
             }
@@ -91,8 +92,10 @@ get_parameter_list <- function(param_interest, value_param_interest,
       }
 
     }else{
-      curr_parm_value <- value_param_interest
-      curr_parm <- param_interest
+      curr_parm_value <-
+        value_params_interest[which(names_params_needed[j] == params_interest)]
+      curr_parm <-
+        params_interest[which(names_params_needed[j] == params_interest)]
     }
     current_param_needed <- append(current_param_needed, curr_parm_value)
     current_param_names <- append(current_param_names, curr_parm)
@@ -104,8 +107,8 @@ get_parameter_list <- function(param_interest, value_param_interest,
 ######################################################################
 #' Function to get NMB for a set of parameter
 #' This is the inner loop of the two stage Monte Carlo process
-#' @param param_interest the main parameter of interest
-#' @param value_param_interest value for the parameter of interest
+#' @param params_interest the main parameter of interest
+#' @param value_params_interest value for the parameter of interest
 #' @param param_file all parameters required to run the model,provided with
 #' name of parameter, distribution and parameters that define the probability
 #' distribution
@@ -118,12 +121,12 @@ get_parameter_list <- function(param_interest, value_param_interest,
 #' strategies
 #' @keywords internal
 #' @details
-#' For the given set of parameter find the nmb from the packDAMipd function
+#' For the given set of parameters find the nmb from the packDAMipd function
 #' calculate_icer_nmb
-find_nmb_setofparams <- function(param_interest, value_param_interest,
+find_nmb_setofparams <- function(params_interest, value_params_interest,
                                  param_file, colnames_paramdistr,
                                  list_markov, threshold, comparator = NULL) {
-  list_checks <- list(param_interest, value_param_interest,
+  list_checks <- list(params_interest, value_params_interest,
                   threshold, param_file, colnames_paramdistr)
   results <- sapply(list_checks, packDAMipd::check_null_na)
   if (sum(results) != 0)
@@ -140,8 +143,8 @@ find_nmb_setofparams <- function(param_interest, value_param_interest,
     names_params_needed <- colnames(list_markov[i, ]$param_matrix)
     names_params_model <- names(list_markov[i, ]$list_param_values)
     params_passed <- list_markov[i, ]$list_param_values
-    current_param_list <- get_parameter_list(param_interest,
-                                             value_param_interest,
+    current_param_list <- get_parameter_list(params_interest,
+                                             value_params_interest,
                                              names_params_needed,
                                              names_params_model,
                                              params_passed, param_file,
@@ -149,9 +152,9 @@ find_nmb_setofparams <- function(param_interest, value_param_interest,
 
     this_markov  <- packDAMipd::markov_model(current_strategy = this$strategy,
                                              cycles = this$cycles,
-                                             initial_state = this$initial_state,
+                                            initial_state = this$initial_state,
                                              discount = this$discount,
-                                             parameter_values = current_param_list,
+                                      parameter_values = current_param_list,
                                              half_cycle_correction =
                                                this$half_cycle_correction,
                                              state_cost_only_prevalent =
@@ -172,7 +175,7 @@ find_nmb_setofparams <- function(param_interest, value_param_interest,
 ######################################################################
 #' Function to estimate the expected value of partial perfect information
 #' This is the outer loop of the two stage Monte Carlo process
-#' @param param_interest the main parameter of interest
+#' @param params_interest the parameters of interest
 #' @param param_file all parameters required to run the model,provided with
 #' name of parameter, distribution and parameters that define the probability
 #' distribution
@@ -187,12 +190,12 @@ find_nmb_setofparams <- function(param_interest, value_param_interest,
 #' of evppi
 #' @source https://www.sciencedirect.com/science/article/pii/S1098301510605888
 #' @export
-estimate_evppi <- function(param_interest, param_file, colnames_paramdistr,
+estimate_evppi <- function(params_interest, param_file, colnames_paramdistr,
                         list_markov, threshold, outer_iterations,
                         inner_iterations,
                         comparator = NULL) {
 
-  list_checks <- list(param_interest, param_file, colnames_paramdistr,
+  list_checks <- list(params_interest, param_file, colnames_paramdistr,
                   threshold, outer_iterations, inner_iterations)
 
   results <- sapply(list_checks, packDAMipd::check_null_na)
@@ -215,15 +218,21 @@ estimate_evppi <- function(param_interest, param_file, colnames_paramdistr,
   #step 9
   for (outer_loop in 1:outer_iterations) {
     #Step 1
-    value_param_interest <- packDAMipd::get_parameter_def_distribution(
-                            param_interest, param_file, colnames_paramdistr)
+    value_params_interest <- c()
+    for (m in seq_len(length(params_interest))) {
+      value_params_interest <- cbind(value_params_interest,
+                                     packDAMipd::get_parameter_def_distribution(
+        params_interest[m], param_file, colnames_paramdistr))
+    }
+
 
     all_nmbs_thetai <- matrix(0, nrow = inner_iterations, ncol = cols_needed)
     all_max_nmb_iteration <- list()
     #step  5
     for (inner_loop in 1:inner_iterations) {
       # step 2,3
-      this_result <- find_nmb_setofparams(param_interest, value_param_interest,
+      this_result <- find_nmb_setofparams(params_interest,
+                                          value_params_interest,
                                          param_file, colnames_paramdistr,
                                       list_markov, threshold, comparator)
       nmbs_thetai <- (as.numeric(this_result$NMB))
@@ -380,9 +389,9 @@ find_nmb_allparams <- function(param_file, colnames_paramdistr,
                                              colnames_paramdistr)
     this_markov  <- packDAMipd::markov_model(current_strategy = this$strategy,
                                              cycles = this$cycles,
-                                             initial_state = this$initial_state,
+                                          initial_state = this$initial_state,
                                              discount = this$discount,
-                                             parameter_values = current_param_list,
+                                        parameter_values = current_param_list,
                                              half_cycle_correction =
                                                this$half_cycle_correction,
                                              state_cost_only_prevalent =
@@ -448,7 +457,8 @@ get_all_parameter_list <- function(names_params_needed, names_params_model,
         # is a numerical value, that has been either read from a file
         # or directly assigned. It might not be calculated. so those can be
         # found from the parameter file
-        res <- suppressWarnings(as.numeric(params_passed[names_params_needed[j]]))
+        res <-
+          suppressWarnings(as.numeric(params_passed[names_params_needed[j]]))
         if (!is.na(res)) {
           # check if the parameter is defined using a distribution or actually
           # fixed (for death rates)

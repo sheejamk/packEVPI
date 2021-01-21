@@ -9,7 +9,7 @@ https://www.sciencedirect.com/science/article/pii/S1098301510605888
 }
 \usage{
 estimate_evppi(
-  param_interest,
+  params_interest,
   param_file,
   colnames_paramdistr,
   list_markov,
@@ -20,13 +20,13 @@ estimate_evppi(
 )
 }
 \arguments{
-\item{param_interest}{the main parameter of interest}
+\item{params_interest}{the parameters of interest}
 
 \item{param_file}{all parameters required to run the model,provided with
 name of parameter, distribution and parameters that define the probability
 distribution}
 
-\item{colnames_paramdistr}{coumn names where parameter distribution
+\item{colnames_paramdistr}{column names where parameter distribution
 and values are defined}
 
 \item{list_markov}{list of markov models to estimate the NMB}
@@ -37,7 +37,7 @@ and values are defined}
 
 \item{inner_iterations}{number of iterations for inner loop}
 
-\item{comparator}{optinal parameter if need ICER as the output}
+\item{comparator}{optional parameter if need ICER as the output}
 }
 \value{
 result result after evppi calculation, including three forms

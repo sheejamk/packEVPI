@@ -26,7 +26,7 @@ estimate_evpi_evppi_single_param(
 name of the parameter, distribution and parameters that define the
 probability distribution}
 
-\item{colnames_paramdistr}{coumn names where parameter distribution
+\item{colnames_paramdistr}{column names where parameter distribution
 and values are defined}
 
 \item{list_markov}{list of markov models to estimate the NMB}
@@ -37,7 +37,7 @@ and values are defined}
 
 \item{inner_iterations}{number of iterations for inner loop}
 
-\item{comparator}{optinal parameter if need ICER as the output}
+\item{comparator}{optional parameter if need ICER as the output}
 }
 \value{
 result evpi and evppi for a single param

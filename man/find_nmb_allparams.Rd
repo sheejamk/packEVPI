@@ -25,7 +25,7 @@ values are defined}
 
 \item{threshold}{threshold values of WTP}
 
-\item{comparator}{optinal parameter if need ICER as the output}
+\item{comparator}{optional parameter if need ICER as the output}
 }
 \value{
 icer_nmb ICER and NMB using all sampled parameters

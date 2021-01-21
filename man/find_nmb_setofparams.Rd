@@ -6,8 +6,8 @@
 This is the inner loop of the two stage Monte Carlo process}
 \usage{
 find_nmb_setofparams(
-  param_interest,
-  value_param_interest,
+  params_interest,
+  value_params_interest,
   param_file,
   colnames_paramdistr,
   list_markov,
@@ -16,9 +16,9 @@ find_nmb_setofparams(
 )
 }
 \arguments{
-\item{param_interest}{the main parameter of interest}
+\item{params_interest}{the main parameter of interest}
 
-\item{value_param_interest}{value for the parameter of interest}
+\item{value_params_interest}{value for the parameter of interest}
 
 \item{param_file}{all parameters required to run the model,provided with
 name of parameter, distribution and parameters that define the probability
@@ -31,7 +31,7 @@ values are defined}
 
 \item{threshold}{threshold values of WTP}
 
-\item{comparator}{optinal parameter if need ICER as the output}
+\item{comparator}{optional parameter if need ICER as the output}
 }
 \value{
 icer_nmb ICER and NMBs for the set of parameters and given
@@ -42,7 +42,7 @@ Function to get NMB for a set of parameter
 This is the inner loop of the two stage Monte Carlo process
 }
 \details{
-For the given set of parameter find the nmb from the packDAMipd function
+For the given set of parameters find the nmb from the packDAMipd function
 calculate_icer_nmb
 }
 \keyword{internal}

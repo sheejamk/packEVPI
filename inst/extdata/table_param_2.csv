@@ -1,0 +1,15 @@
+Parameter,Description,Strategy,Value,Calculation,Distribution,Param1_name,Param1_value,Param2_name,Param2_value
+p_HD,,,0.002,,,,,,
+p_HS,,,0.15,,uniform,min,0.1,max,0.3
+hr_S,,,3,,,,,,
+c_H,,,2000,,,,,,
+c_S,,,4000,,,,,,
+c_D,,,0,,,,,,
+c_Trt,,,8000,,uniform,min,6000,max,12000
+u_H,,,1,,,,,,
+u_S,,,0.5,,,,,,
+u_D,,,0,,,,,,
+u_Trt,,,0.95,,,,,,
+du_HS,,,-0.01,,,,,,
+ic_HS,,,1000,,,,,,
+ic_D,,,2000,,,,,,

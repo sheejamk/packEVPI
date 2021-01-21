@@ -26,7 +26,7 @@ estimate_evpi_evppi_diff_threshold(
 with name of the parameter, distribution and parameters that define
 the probability distribution}
 
-\item{colnames_paramdistr}{coumn names where parameter distribution and
+\item{colnames_paramdistr}{column names where parameter distribution and
 values are defined}
 
 \item{list_markov}{list of markov models to estimate the NMB}
@@ -37,7 +37,7 @@ values are defined}
 
 \item{inner_iterations}{number of iterations for inner loop}
 
-\item{comparator}{optinal parameter if need ICER as the output}
+\item{comparator}{optional parameter if need ICER as the output}
 }
 \value{
 result result for evpi and evppi for different values of threshold

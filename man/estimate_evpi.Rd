@@ -22,7 +22,7 @@ estimate_evpi(
 with name of parameter, distribution and parameters that define the
 probability distribution}
 
-\item{colnames_paramdistr}{coumn names where parameter distribution and
+\item{colnames_paramdistr}{column names where parameter distribution and
 values are defined}
 
 \item{list_markov}{list of markov models to estimate the NMB}
