@@ -564,7 +564,7 @@ get_all_parameter_list <- function(names_params_needed, names_params_model,
     # sample all - but identify those require calculations
     #if the selected parameters is needed to run the model
     if (names_params_needed[j] %in% names_params_model) {
-      #if the params_passed for the current parameter considered
+       #if the params_passed for the current parameter considered
       # is a numerical value, that has been either read from a file
       # or directly assigned. It might not be calculated. so those can be
       # found from the parameter file
@@ -719,7 +719,9 @@ find_nmb_allparams <- function(param_file, colnames_paramdistr,
                                                this$state_util_only_prevalent,
                                              method = this$method,
                                              startup_cost = this$startup_cost,
-                                             startup_util = this$startup_util)
+                                             startup_util = this$startup_util,
+                                             no_cycles_year = this$no_cycles_year,
+                                             start_discount =this$start_discount )
     new_list_markov[[length(new_list_markov) + 1]] <- this_markov
   }
   new_list_markov <- packDAMipd::combine_markov(new_list_markov)

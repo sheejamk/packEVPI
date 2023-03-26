@@ -15,6 +15,7 @@ tm <- packDAMipd::populate_transition_matrix(3, tmat,
                                              colnames(tmat))
 health_states <- packDAMipd::combine_state(well, disabled, dead)
 this.strategy <- packDAMipd::strategy(tm, health_states, "control")
+
 param_list <- packDAMipd::define_parameters(
   tp_well_dis_co = packDAMipd::get_parameter_read("tp_well_dis_co",
                                                   param_file),
@@ -39,7 +40,7 @@ param_list <- packDAMipd::define_parameters(
 
 this_markov <- packDAMipd::markov_model(this.strategy, 24, c(1000, 0, 0),
                                         discount = c(0, 0),
-                                        method = "half cycle correction",
+                                        method = "life table",
                                         param_list)
 
 well <- packDAMipd::health_state("well", cost = "cost_well_in", utility = 1)
@@ -58,7 +59,7 @@ health_states <- packDAMipd::combine_state(well, disabled, dead)
 this.strategy <- packDAMipd::strategy(tm, health_states, "intervention")
 sec_markov <- packDAMipd::markov_model(this.strategy, 24, c(1000, 0, 0),
                                        discount = c(0, 0),
-                                method = "half cycle correction", param_list)
+                                method = "life table", param_list)
 list_markov <- packDAMipd::combine_markov(list(this_markov, sec_markov))
 
 
@@ -531,7 +532,7 @@ test_that("plotting evpi threshold", {
 
   this_markov <- packDAMipd::markov_model(this.strategy, 24, c(1000, 0, 0),
                                           discount = c(0, 0),
-                                          method = "half cycle correction",
+                                          method = "life table",
                                           param_list)
 
   well <- packDAMipd::health_state("well", cost = "cost_well_in", utility = 1)
@@ -551,7 +552,7 @@ test_that("plotting evpi threshold", {
   this.strategy <- packDAMipd::strategy(tm, health_states, "intervention")
   sec_markov <- packDAMipd::markov_model(this.strategy, 24, c(1000, 0, 0),
                                          discount = c(0, 0),
-                                         method = "half cycle correction",
+                                         method = "life table",
                                          param_list)
   list_markov <- packDAMipd::combine_markov(list(this_markov, sec_markov))
 
@@ -620,7 +621,7 @@ test_that("testing evpi and evppi for subset of parameters  but for mulitple
             uc_markov <- packDAMipd::markov_model(uc_strategy, 85, c(1, 0, 0),
                                                   c(0, 0),
                                                   param_list, TRUE,
-                                          method = "half cycle correction")
+                                          method = "life table")
             packDAMipd::plot_model(uc_markov)
 
             H <- packDAMipd::health_state("H", cost = "c_H ", utility = "u_H")
@@ -637,7 +638,7 @@ test_that("testing evpi and evppi for subset of parameters  but for mulitple
                                                    discount = c(0, 0),
                                                    parameter_values =
                                                      param_list, TRUE, method =
-                                                     "half cycle correction")
+                                                     "life table")
 
             list_markov <- packDAMipd::combine_markov(uc_markov, trt_markov)
 
